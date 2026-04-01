@@ -1,0 +1,36 @@
+/* ═══════════════════════════════════════════════════════════
+   GIGAglas — Local font declarations
+   Fonts live in: Brand_assets/Font/
+═══════════════════════════════════════════════════════════ */
+
+/* ── Montserrat ─────────────────────────────────────────── */
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-Thin.otf') format('opentype'); font-weight:100; font-style:normal; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-ThinItalic.otf') format('opentype'); font-weight:100; font-style:italic; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-ExtraLight.otf') format('opentype'); font-weight:200; font-style:normal; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-ExtraLightItalic.otf') format('opentype'); font-weight:200; font-style:italic; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-Light.otf') format('opentype'); font-weight:300; font-style:normal; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-LightItalic.otf') format('opentype'); font-weight:300; font-style:italic; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-Regular.otf') format('opentype'); font-weight:400; font-style:normal; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-Italic.otf') format('opentype'); font-weight:400; font-style:italic; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-Medium.otf') format('opentype'); font-weight:500; font-style:normal; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-MediumItalic.otf') format('opentype'); font-weight:500; font-style:italic; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-SemiBold.otf') format('opentype'); font-weight:600; font-style:normal; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-SemiBoldItalic.otf') format('opentype'); font-weight:600; font-style:italic; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-Bold.otf') format('opentype'); font-weight:700; font-style:normal; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-BoldItalic.otf') format('opentype'); font-weight:700; font-style:italic; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-ExtraBold.otf') format('opentype'); font-weight:800; font-style:normal; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-ExtraBoldItalic.otf') format('opentype'); font-weight:800; font-style:italic; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-Black.otf') format('opentype'); font-weight:900; font-style:normal; font-display:swap; }
+@font-face { font-family:'Montserrat'; src:url('Brand_assets/Font/Montserrat-BlackItalic.otf') format('opentype'); font-weight:900; font-style:italic; font-display:swap; }
+
+/* ── Eurostile Next Pro Wide ────────────────────────────── */
+@font-face { font-family:'Eurostile'; src:url('Brand_assets/Font/EurostileNextPro-WideUltLt.otf') format('opentype'); font-weight:100; font-style:normal; font-display:swap; }
+@font-face { font-family:'Eurostile'; src:url('Brand_assets/Font/EurostileNextPro-WideUlLtIt.otf') format('opentype'); font-weight:100; font-style:italic; font-display:swap; }
+@font-face { font-family:'Eurostile'; src:url('Brand_assets/Font/EurostileNextPro-WideLt.otf') format('opentype'); font-weight:300; font-style:normal; font-display:swap; }
+@font-face { font-family:'Eurostile'; src:url('Brand_assets/Font/EurostileNextPro-WideLtIt.otf') format('opentype'); font-weight:300; font-style:italic; font-display:swap; }
+@font-face { font-family:'Eurostile'; src:url('Brand_assets/Font/EurostileNextPro-Wide.otf') format('opentype'); font-weight:400; font-style:normal; font-display:swap; }
+@font-face { font-family:'Eurostile'; src:url('Brand_assets/Font/EurostileNextPro-WideItalic.otf') format('opentype'); font-weight:400; font-style:italic; font-display:swap; }
+@font-face { font-family:'Eurostile'; src:url('Brand_assets/Font/EurostileNextPro-WideSmBd.otf') format('opentype'); font-weight:600; font-style:normal; font-display:swap; }
+@font-face { font-family:'Eurostile'; src:url('Brand_assets/Font/EurostileNextPro-WideSmBdIt.otf') format('opentype'); font-weight:600; font-style:italic; font-display:swap; }
+@font-face { font-family:'Eurostile'; src:url('Brand_assets/Font/EurostileNextPro-WideBold.otf') format('opentype'); font-weight:700; font-style:normal; font-display:swap; }
+@font-face { font-family:'Eurostile'; src:url('Brand_assets/Font/EurostileNextPro-WideBoldIt.otf') format('opentype'); font-weight:700; font-style:italic; font-display:swap; }
