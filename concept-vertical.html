@@ -1503,6 +1503,7 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
       var cards = document.querySelectorAll('.why-card');
       if (!cards.length) return;
       var defaultFeatured = document.querySelector('.why-card--featured');
+      var isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 
       function setFeatured(card) {
         cards.forEach(function (c) { c.classList.remove('why-card--featured'); });
@@ -1513,14 +1514,18 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
         if (defaultFeatured) defaultFeatured.classList.add('why-card--featured');
       }
 
-      cards.forEach(function (card) {
-        card.addEventListener('mouseenter', function () { setFeatured(card); });
-        card.addEventListener('click', function () { setFeatured(card); });
-      });
-
-      var whyCards = document.querySelector('.why__cards');
-      if (whyCards) {
-        whyCards.addEventListener('mouseleave', resetFeatured);
+      if (isTouch) {
+        // Touch: tap to activate, stays until another card is tapped
+        cards.forEach(function (card) {
+          card.addEventListener('click', function () { setFeatured(card); });
+        });
+      } else {
+        // Desktop: follow mouse, reset on leave
+        cards.forEach(function (card) {
+          card.addEventListener('mouseenter', function () { setFeatured(card); });
+        });
+        var whyCards = document.querySelector('.why__cards');
+        if (whyCards) whyCards.addEventListener('mouseleave', resetFeatured);
       }
     })();
 
