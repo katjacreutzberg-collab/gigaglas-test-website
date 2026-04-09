@@ -487,8 +487,8 @@
   // ══════════════════════════════════════════════════════
   (function () {
     var wordSets = {
-      nl: ['Gehard glas', 'Gelaagd glas', 'Brandwerend glas', 'Zeefdruk glas', 'Gebogen glas'],
-      en: ['Tempered glazing', 'Laminated glazing', 'Fire-resistant glazing', 'Screen-printed glazing', 'Curved glazing']
+      nl: ['Zeefdruk glas', 'Gebogen glas', 'Gelaagd glas', 'Gehard glas', 'Brandwerend glas'],
+      en: ['Screen-printed glazing', 'Curved glazing', 'Laminated glazing', 'Tempered glazing', 'Fire-resistant glazing']
     };
     var afterText = {
       nl: '<br />dat presteert<br />op elke schaal.',
