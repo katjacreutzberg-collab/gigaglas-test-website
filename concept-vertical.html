@@ -335,7 +335,69 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
   display: flex;
   flex-direction: column;
   gap: 0;
+  position: relative;
 }
+
+/* Full-grid hover overlay */
+.ref__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.38s cubic-bezier(0.4,0,0.2,1);
+  overflow: hidden;
+}
+.ref__overlay.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.ref__overlay img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.78) contrast(1.04) saturate(1.0);
+  transform: scale(1.04);
+  transition: transform 0.9s cubic-bezier(0.4,0,0.2,1), filter 0.5s;
+}
+.ref__overlay.is-active img {
+  transform: scale(1.0);
+}
+.ref__overlay-body {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 120px 48px 48px;
+  background: linear-gradient(to top, rgba(4,18,16,0.97) 0%, rgba(4,18,16,0.80) 50%, transparent 100%);
+  display: flex; flex-direction: column; gap: 10px;
+}
+.ref__overlay-type {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--teal);
+}
+.ref__overlay-name {
+  font-family: var(--font-disp); font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700; color: var(--white); line-height: 1.15;
+}
+.ref__overlay-specs {
+  display: flex; flex-direction: column; gap: 6px;
+  margin-top: 4px;
+}
+.ref__overlay-specs li {
+  font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.78);
+  display: flex; align-items: center; gap: 8px;
+}
+.ref__overlay-specs li::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--teal); flex-shrink: 0;
+}
+.ref__overlay-enquire {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 8px;
+  font-size: 0.76rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--teal);
+  text-decoration: none;
+  transition: color 0.2s, gap 0.2s;
+}
+.ref__overlay-enquire:hover { color: var(--white); gap: 14px; }
+
 /* Each row is its own horizontal scroll container */
 .ref__row {
   display: flex;
@@ -352,9 +414,9 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
   min-width: calc(100% / 6);
   height: 360px;
   position: relative; overflow: hidden; cursor: pointer;
-  transition: flex 0.65s cubic-bezier(0.4,0,0.2,1);
+  transition: flex 0.4s cubic-bezier(0.4,0,0.2,1);
 }
-.ref__cell:hover { flex: 3.2 1 0; }
+.ref__cell:hover { flex: 1.6 1 0; }
 
 /* Arrow navigation */
 .ref__arrow {
@@ -932,6 +994,15 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
     <div class="ref__scroll-wrap">
     <button class="ref__arrow ref__arrow--prev" aria-label="Vorige">&#8592;</button>
     <div class="ref__grid">
+      <div class="ref__overlay" id="refOverlay">
+        <img id="refOverlayImg" src="" alt="" />
+        <div class="ref__overlay-body">
+          <span class="ref__overlay-type" id="refOverlayType"></span>
+          <span class="ref__overlay-name" id="refOverlayName"></span>
+          <ul class="ref__overlay-specs" id="refOverlaySpecs"></ul>
+          <a href="#contact" class="ref__overlay-enquire">Informeer →</a>
+        </div>
+      </div>
       <div class="ref__row" id="refRow1">
         <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-cooltoren-rotterdam.jpg" alt="Cooltoren, Rotterdam" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gehard glas</span><span class="ref__name">Cooltoren, Rotterdam</span><ul class="ref__specs"><li>Oversized geharde panelen</li><li>Constructieve balkons & gevel</li><li>Hoge windlastklasse</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
         <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-Calypso-rotterdam.jpg" alt="Calypso, Rotterdam" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gelamineerde gevelbeglazing</span><span class="ref__name">Calypso, Rotterdam</span><ul class="ref__specs"><li>Oversized gelaagde gevelplaten</li><li>PVB veiligheidsinterlayer</li><li>Hoge windlastklasse</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
@@ -1162,6 +1233,35 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
         row1.scrollBy({ left: row1.clientWidth, behavior: 'smooth' });
       });
       updateArrows();
+    })();
+
+    // Reference grid — full-grid hover overlay
+    (function () {
+      var grid   = document.querySelector('.ref__grid');
+      var overlay = document.getElementById('refOverlay');
+      var oImg   = document.getElementById('refOverlayImg');
+      var oType  = document.getElementById('refOverlayType');
+      var oName  = document.getElementById('refOverlayName');
+      var oSpecs = document.getElementById('refOverlaySpecs');
+      if (!grid || !overlay) return;
+
+      grid.addEventListener('mouseover', function (e) {
+        var cell = e.target.closest('.ref__cell');
+        if (!cell) return;
+        var img   = cell.querySelector('img');
+        var type  = cell.querySelector('.ref__type');
+        var name  = cell.querySelector('.ref__name');
+        var specs = cell.querySelector('.ref__specs');
+        if (img)   { oImg.src = img.src; oImg.alt = img.alt || ''; }
+        if (type)  oType.textContent = type.textContent;
+        if (name)  oName.textContent = name.textContent;
+        if (specs) oSpecs.innerHTML  = specs.innerHTML;
+        overlay.classList.add('is-active');
+      });
+
+      grid.addEventListener('mouseleave', function () {
+        overlay.classList.remove('is-active');
+      });
     })();
   </script>
 </body>
