@@ -1228,10 +1228,10 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
       }
 
       prev.addEventListener('click', function () {
-        row1.scrollTo({ left: 0, behavior: 'smooth' });
+        row1.scrollBy({ left: -row1.clientWidth, behavior: 'smooth' });
       });
       next.addEventListener('click', function () {
-        row1.scrollTo({ left: row1.scrollWidth, behavior: 'smooth' });
+        row1.scrollBy({ left: row1.clientWidth, behavior: 'smooth' });
       });
       updateArrows();
     })();
