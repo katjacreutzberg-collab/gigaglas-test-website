@@ -330,6 +330,7 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
   font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.75;
   margin-top: 0;
 }
+.ref__intro-right .btn { margin-left: 40px; }
 
 
 /* 2-row scroll strip — each cell expands individually */
@@ -536,7 +537,7 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
 ═══════════════════════════════════════════ */
 .products {
   background: linear-gradient(145deg, #041f1d 0%, #083a36 20%, #0d524e 50%, #126460 80%, #0f5a56 100%);
-  padding: clamp(72px,9vw,120px) var(--pad-x);
+  padding: clamp(72px,9vw,120px) var(--pad-x) 0;
 }
 .products__top {
   margin-bottom: 48px;
@@ -556,9 +557,10 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
   padding-left: 40px;
   font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.75; margin-top: 0;
 }
+.products__top-right .btn { margin-left: 40px; }
 
 /* Horizontal card strip */
-.product-strip-wrap { position: relative; }
+.product-strip-wrap { position: relative; margin-right: calc(-1 * var(--pad-x)); }
 .product-strip {
   display: flex; gap: 0;
   overflow-x: auto; overflow-y: hidden;
@@ -828,10 +830,13 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
   .products__top-left { padding-right: 0; }
   .products__top-right { gap: 16px; }
   .products__sub { border-left: none; padding-left: 0; max-width: 100%; }
+  .products__top-right .btn { margin-left: 0; }
   .ref__intro-right { gap: 16px; }
+  .ref__intro-right .btn { margin-left: 0; }
   .ref__sub { border-left: none; padding-left: 0; max-width: 100%; }
   .prod-card { min-width: calc(100% / 3); height: 400px; }
   .prod-card:hover { flex: 2.2 1 0; }
+  .product-strip-wrap { margin-right: 0; }
 
   /* Why */
   .why__top { flex-direction: column; gap: 16px; align-items: flex-start; padding-bottom: 28px; }
@@ -908,7 +913,9 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
   .products__top-left { padding-right: 0; }
   .products__top-right { gap: 12px; }
   .products__sub { border-left: none; padding-left: 0; max-width: 100%; }
+  .products__top-right .btn { margin-left: 0; }
   .ref__intro-right { gap: 12px; }
+  .ref__intro-right .btn { margin-left: 0; }
   .ref__sub { border-left: none; padding-left: 0; max-width: 100%; }
   .product-strip-wrap { margin: 0 calc(-1 * var(--pad-x)); }
   .product-strip { gap: 0; }
