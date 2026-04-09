@@ -327,82 +327,72 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
 }
 
 
-/* 2-row horizontal scroll strip — columns expand on hover like prod-cards */
+/* 2-row scroll strip — each cell expands individually */
 .ref__scroll-wrap {
   position: relative;
 }
 .ref__grid {
   display: flex;
-  gap: 1px;
-  background: #1b6b64; /* dark teal hairline between cols */
+  flex-direction: column;
+  gap: 0;
+}
+/* Each row is its own horizontal scroll container */
+.ref__row {
+  display: flex;
+  gap: 0;
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: none;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  height: 601px; /* 2 × 300px + 1px gap */
 }
-.ref__grid::-webkit-scrollbar { display: none; }
+.ref__row::-webkit-scrollbar { display: none; }
 
-/* Column wrapper: this is the flex item that expands */
-.ref__col {
-  flex: 1 1 0; min-width: 200px;
-  display: flex; flex-direction: column; gap: 1px;
-  transition: flex 0.65s cubic-bezier(0.4,0,0.2,1);
-  scroll-snap-align: start;
-}
-.ref__col:hover { flex: 2.4 1 0; }
-
+/* Each cell fills 1/6 of the row width — 6 visible at a time */
 .ref__cell {
-  flex: 1; position: relative; overflow: hidden; cursor: pointer;
+  flex: 1 1 0;
+  min-width: calc(100% / 6);
+  height: 300px;
+  position: relative; overflow: hidden; cursor: pointer;
+  transition: flex 0.65s cubic-bezier(0.4,0,0.2,1);
 }
+.ref__cell:hover { flex: 2.6 1 0; }
 
 /* Arrow navigation */
 .ref__arrow {
   position: absolute; top: 50%; transform: translateY(-50%);
   z-index: 10; width: 44px; height: 44px; border-radius: 50%;
   border: none; cursor: pointer;
-  background: rgba(240,247,247,0.85); backdrop-filter: blur(8px);
-  color: var(--teal); font-size: 1.1rem;
+  background: rgba(15,90,86,0.85); backdrop-filter: blur(8px);
+  color: var(--white); font-size: 1.1rem;
   display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s, color 0.2s, transform 0.2s;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
 }
-.ref__arrow:hover { background: var(--teal); color: var(--white); transform: translateY(-50%) scale(1.08); }
+.ref__arrow:hover { background: var(--teal); transform: translateY(-50%) scale(1.08); }
 .ref__arrow--prev { left: -22px; }
 .ref__arrow--next { right: -22px; }
 
-/* Image default and hover */
+/* Image — match prod-card: darker default, zoom in, brightens on hover */
 .ref__cell img {
   width: 100%; height: 100%; object-fit: cover;
-  filter: brightness(0.82) saturate(0.92);
-  transform: scale(1.0);
-  transition: filter 0.7s var(--ease), transform 1.1s var(--ease);
-}
-.ref__col:hover .ref__cell img {
-  filter: brightness(0.58) saturate(1.05);
+  filter: brightness(0.58) contrast(1.06) saturate(0.85);
   transform: scale(1.10);
+  transition: filter 0.65s var(--ease), transform 1.0s var(--ease);
+}
+.ref__cell:hover img {
+  filter: brightness(0.90) contrast(1.02) saturate(1.08);
+  transform: scale(1.0);
 }
 
-/* Overlay anchored to bottom only — wraps content height, grows upward on hover */
+/* Overlay — identical gradient to prod-card__body, always visible */
 .ref__cell-overlay {
   position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 48px 18px 16px;
+  padding: 72px 18px 18px;
   display: flex; flex-direction: column; gap: 5px;
-  background: linear-gradient(to top,
-    rgba(4,18,16,0.88) 0%,
-    rgba(4,18,16,0.55) 40%,
-    rgba(4,18,16,0.18) 70%,
-    transparent 100%);
-  transition: background 0.55s var(--ease), padding-top 0.45s var(--ease);
+  background: linear-gradient(to top, rgba(4,18,16,0.97) 0%, rgba(4,18,16,0.82) 55%, transparent 100%);
+  transition: padding-top 0.45s var(--ease);
 }
-.ref__col:hover .ref__cell .ref__cell-overlay {
-  padding-top: 80px;
-  background: linear-gradient(to top,
-    rgba(4,18,16,0.97) 0%,
-    rgba(4,18,16,0.82) 48%,
-    rgba(4,18,16,0.32) 80%,
-    transparent 100%);
+.ref__cell:hover .ref__cell-overlay {
+  padding-top: 90px;
 }
 
 .ref__type {
@@ -420,7 +410,7 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
   max-height: 0; overflow: hidden;
   transition: max-height 0.45s var(--ease);
 }
-.ref__col:hover .ref__cell .ref__specs { max-height: 90px; }
+.ref__cell:hover .ref__specs { max-height: 90px; }
 
 .ref__specs li {
   font-size: 0.68rem; font-weight: 600; color: rgba(255,255,255,0.72);
@@ -428,10 +418,10 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
   opacity: 0; transform: translateY(6px);
   transition: opacity 0.3s, transform 0.32s;
 }
-.ref__col:hover .ref__cell .ref__specs li { opacity: 1; transform: translateY(0); }
-.ref__col:hover .ref__cell .ref__specs li:nth-child(1) { transition-delay: 0.10s; }
-.ref__col:hover .ref__cell .ref__specs li:nth-child(2) { transition-delay: 0.16s; }
-.ref__col:hover .ref__cell .ref__specs li:nth-child(3) { transition-delay: 0.22s; }
+.ref__cell:hover .ref__specs li { opacity: 1; transform: translateY(0); }
+.ref__cell:hover .ref__specs li:nth-child(1) { transition-delay: 0.10s; }
+.ref__cell:hover .ref__specs li:nth-child(2) { transition-delay: 0.16s; }
+.ref__cell:hover .ref__specs li:nth-child(3) { transition-delay: 0.22s; }
 .ref__specs li::before {
   content: ''; width: 4px; height: 4px; border-radius: 50%;
   background: var(--teal); flex-shrink: 0;
@@ -445,7 +435,7 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
   max-height: 0; overflow: hidden; opacity: 0;
   transition: max-height 0.45s var(--ease), opacity 0.3s 0.24s, color 0.2s, gap 0.2s;
 }
-.ref__col:hover .ref__cell .ref__enquire { max-height: 40px; opacity: 1; }
+.ref__cell:hover .ref__enquire { max-height: 40px; opacity: 1; }
 .ref__enquire:hover { color: var(--white); gap: 10px; }
 
 .ref__more {
@@ -941,41 +931,27 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
 
     <div class="ref__scroll-wrap">
     <button class="ref__arrow ref__arrow--prev" aria-label="Vorige">&#8592;</button>
-    <div class="ref__grid" id="refGrid">
-      <div class="ref__col">
+    <div class="ref__grid">
+      <div class="ref__row" id="refRow1">
         <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-cooltoren-rotterdam.jpg" alt="Cooltoren, Rotterdam" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gehard glas</span><span class="ref__name">Cooltoren, Rotterdam</span><ul class="ref__specs"><li>Oversized geharde panelen</li><li>Constructieve balkons & gevel</li><li>Hoge windlastklasse</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-Nieuw-babylon.jpg" alt="Nieuw Babylon" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Constructief gehard glas</span><span class="ref__name">Nieuw Babylon, Den Haag</span><ul class="ref__specs"><li>Extra sterk constructief gehard</li><li>Gevel & balustrade</li><li>EN 12150 gecertificeerd</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-      </div>
-      <div class="ref__col">
         <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-Calypso-rotterdam.jpg" alt="Calypso, Rotterdam" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gelamineerde gevelbeglazing</span><span class="ref__name">Calypso, Rotterdam</span><ul class="ref__specs"><li>Oversized gelaagde gevelplaten</li><li>PVB veiligheidsinterlayer</li><li>Hoge windlastklasse</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-zalmhaven-rotterdam-2.jpg" alt="Zalmhaven" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gelaagd glas</span><span class="ref__name">Zalmhaven, Rotterdam</span><ul class="ref__specs"><li>SGP/PVB tussenlaag</li><li>Oversized formaten</li><li>High-rise toepassing</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-      </div>
-      <div class="ref__col">
         <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-pontsteiger-amsterdam.jpg" alt="Pontsteiger" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gelamineerde gevelbeglazing</span><span class="ref__name">Pontsteiger, Amsterdam</span><ul class="ref__specs"><li>SGP veiligheidsinterlayer</li><li>Oversized gevelplaten</li><li>Waterkant locatie</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-jules-ladoumegue.jpg" alt="Jules Ladoumègue" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Zeefdruk glas</span><span class="ref__name">Jules Ladoumègue, Paris</span><ul class="ref__specs"><li>RAL maatwerkdekking</li><li>Gecombineerd met harden</li><li>Buitengeveltoepassing</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-      </div>
-      <div class="ref__col">
         <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-de-rotterdam.jpg" alt="De Rotterdam" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gelaagd glas</span><span class="ref__name">De Rotterdam</span><ul class="ref__specs"><li>PVB veiligheidsinterlayer</li><li>Akoestisch gelaagd</li><li>Grote geveloppervlakken</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-the-one-tower-bridge.jpg" alt="The One Tower Bridge" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gordijngevelglazing</span><span class="ref__name">The One, Tower Bridge</span><ul class="ref__specs"><li>Volledig curtain wall systeem</li><li>Thermisch & akoestisch</li><li>High-rise geveloplossing</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-      </div>
-      <div class="ref__col">
         <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-bergopwaarts.jpg" alt="Bergopwaarts, Deurne" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gehard glas</span><span class="ref__name">Bergopwaarts, Deurne</span><ul class="ref__specs"><li>Oversized geharde panelen</li><li>Balustrade & gevel</li><li>EN 12150 gecertificeerd</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-cs-arnhem.jpg" alt="CS Arnhem" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gebogen glas</span><span class="ref__name">CS Arnhem</span><ul class="ref__specs"><li>Enkelvoudig gebogen</li><li>Constructief gehard</li><li>Dak & gevelconstructie</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-      </div>
-      <div class="ref__col">
         <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-zac-seguin.jpg" alt="ZAC Seguin" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gordijngevelglazing</span><span class="ref__name">ZAC Seguin, Boulogne</span><ul class="ref__specs"><li>Curtain wall systeem</li><li>Thermisch geïsoleerd</li><li>Structureel beglaasd</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-stadionkwartier-eindhoven.jpg" alt="Stadionkwartier" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Zeefdruk glas</span><span class="ref__name">Stadionkwartier, Eindhoven</span><ul class="ref__specs"><li>Volledige zeefdrukdekking</li><li>RAL maatwerkkleur</li><li>Gecombineerd met harden</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-      </div>
-      <div class="ref__col">
         <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-Orleans-ziekenhuis.jpg" alt="Orléans Ziekenhuis" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Brandwerend glas</span><span class="ref__name">Orléans Ziekenhuis</span><ul class="ref__specs"><li>EI 60 / EI 120 klassen</li><li>Zorginstelling toepassing</li><li>EN 1634 gecertificeerd</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-de-drie-leeuwen.jpg" alt="De Drie Leeuwen" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Brandwerend glas</span><span class="ref__name">De Drie Leeuwen</span><ul class="ref__specs"><li>EW / EI integriteitsklassen</li><li>30–120 minuten klassen</li><li>Brandwerende omlijsting</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-      </div>
-      <div class="ref__col">
         <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-brainport-reclamemast-eindhoven.jpg" alt="Brainport, Eindhoven" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Zeefdruk glas</span><span class="ref__name">Brainport, Eindhoven</span><ul class="ref__specs"><li>Maatwerkbedrukking</li><li>RAL kleurmatch</li><li>Grote geveloppervlakken</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-fietsenstalling.jpg" alt="Fietsenstalling" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gehard glas</span><span class="ref__name">Fietsenstalling</span><ul class="ref__specs"><li>Constructief gehard</li><li>Buitentoepassing</li><li>Corrosiebestendig</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
-      </div>
-      <div class="ref__col">
         <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-geluidschermen-snelwegprojecten.jpg" alt="Geluidschermen" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gelaagd glas</span><span class="ref__name">Geluidschermen</span><ul class="ref__specs"><li>Akoestisch gelaagd glas</li><li>Snelwegtoepassing</li><li>CE-gecertificeerd</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
+      </div>
+      <div class="ref__row" id="refRow2">
+        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-Nieuw-babylon.jpg" alt="Nieuw Babylon" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Constructief gehard glas</span><span class="ref__name">Nieuw Babylon, Den Haag</span><ul class="ref__specs"><li>Extra sterk constructief gehard</li><li>Gevel & balustrade</li><li>EN 12150 gecertificeerd</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
+        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-zalmhaven-rotterdam-2.jpg" alt="Zalmhaven" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gelaagd glas</span><span class="ref__name">Zalmhaven, Rotterdam</span><ul class="ref__specs"><li>SGP/PVB tussenlaag</li><li>Oversized formaten</li><li>High-rise toepassing</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
+        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-jules-ladoumegue.jpg" alt="Jules Ladoumègue" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Zeefdruk glas</span><span class="ref__name">Jules Ladoumègue, Paris</span><ul class="ref__specs"><li>RAL maatwerkdekking</li><li>Gecombineerd met harden</li><li>Buitengeveltoepassing</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
+        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-the-one-tower-bridge.jpg" alt="The One Tower Bridge" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gordijngevelglazing</span><span class="ref__name">The One, Tower Bridge</span><ul class="ref__specs"><li>Volledig curtain wall systeem</li><li>Thermisch & akoestisch</li><li>High-rise geveloplossing</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
+        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-cs-arnhem.jpg" alt="CS Arnhem" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gebogen glas</span><span class="ref__name">CS Arnhem</span><ul class="ref__specs"><li>Enkelvoudig gebogen</li><li>Constructief gehard</li><li>Dak & gevelconstructie</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
+        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-stadionkwartier-eindhoven.jpg" alt="Stadionkwartier" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Zeefdruk glas</span><span class="ref__name">Stadionkwartier, Eindhoven</span><ul class="ref__specs"><li>Volledige zeefdrukdekking</li><li>RAL maatwerkkleur</li><li>Gecombineerd met harden</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
+        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-de-drie-leeuwen.jpg" alt="De Drie Leeuwen" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Brandwerend glas</span><span class="ref__name">De Drie Leeuwen</span><ul class="ref__specs"><li>EW / EI integriteitsklassen</li><li>30–120 minuten klassen</li><li>Brandwerende omlijsting</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
+        <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-fietsenstalling.jpg" alt="Fietsenstalling" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gehard glas</span><span class="ref__name">Fietsenstalling</span><ul class="ref__specs"><li>Constructief gehard</li><li>Buitentoepassing</li><li>Corrosiebestendig</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
         <div class="ref__cell"><img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-parktoren-amsterdam.jpg" alt="Parktoren, Antwerpen" loading="lazy" /><div class="ref__cell-overlay"><span class="ref__type">Gelamineerde gevelbeglazing</span><span class="ref__name">Parktoren, Antwerpen</span><ul class="ref__specs"><li>Oversized gelaagde panelen</li><li>PVB veiligheidsinterlayer</li><li>High-rise toepassing</li></ul><a href="#contact" class="ref__enquire">Informeer →</a></div></div>
       </div>
     </div>
@@ -1148,27 +1124,45 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
       setInterval(step, INTERVAL);
     })();
 
-    // Reference grid arrow navigation
+    // Reference grid arrow navigation (two-row sync)
     (function () {
-      var grid = document.getElementById('refGrid');
+      var row1 = document.getElementById('refRow1');
+      var row2 = document.getElementById('refRow2');
       var prev = document.querySelector('.ref__arrow--prev');
       var next = document.querySelector('.ref__arrow--next');
-      if (!grid || !prev || !next) return;
+      if (!row1 || !prev || !next) return;
 
-      var STEP = 361 * 3; // scroll ~3 columns at a time
+      var STEP = row1.clientWidth; // scroll exactly one full view at a time
 
       function updateArrows() {
-        prev.style.opacity = grid.scrollLeft <= 4 ? '0.35' : '1';
-        next.style.opacity = grid.scrollLeft >= grid.scrollWidth - grid.clientWidth - 4 ? '0.35' : '1';
+        prev.style.opacity = row1.scrollLeft <= 4 ? '0.35' : '1';
+        next.style.opacity = row1.scrollLeft >= row1.scrollWidth - row1.clientWidth - 4 ? '0.35' : '1';
+      }
+
+      var syncing = false;
+      row1.addEventListener('scroll', function () {
+        updateArrows();
+        if (syncing) return;
+        syncing = true;
+        if (row2) row2.scrollLeft = row1.scrollLeft;
+        syncing = false;
+      });
+      if (row2) {
+        row2.addEventListener('scroll', function () {
+          if (syncing) return;
+          syncing = true;
+          row1.scrollLeft = row2.scrollLeft;
+          updateArrows();
+          syncing = false;
+        });
       }
 
       prev.addEventListener('click', function () {
-        grid.scrollBy({ left: -STEP, behavior: 'smooth' });
+        row1.scrollBy({ left: -STEP, behavior: 'smooth' });
       });
       next.addEventListener('click', function () {
-        grid.scrollBy({ left: STEP, behavior: 'smooth' });
+        row1.scrollBy({ left: STEP, behavior: 'smooth' });
       });
-      grid.addEventListener('scroll', updateArrows);
       updateArrows();
     })();
   </script>
