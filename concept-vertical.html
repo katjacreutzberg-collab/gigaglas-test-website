@@ -215,9 +215,10 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
   width: 56%; z-index: 2;
   display: grid; grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid rgba(255,255,255,0.12);
+  padding-left: var(--pad-x);
 }
 .hero__stat-item {
-  padding: 16px clamp(12px, 1.8vw, 28px);
+  padding: 16px clamp(8px, 1.2vw, 20px);
   border-right: 1px solid rgba(255,255,255,0.10);
   display: flex; flex-direction: column; gap: 4px;
 }
@@ -319,8 +320,11 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
 .ref__intro-left .panel__title { margin-bottom: 0; }
 .references .panel__title   { color: var(--white); }
 .references .eyebrow        { color: var(--teal); border-left-color: var(--teal); }
+.ref__intro-right {
+  flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 24px;
+}
 .ref__sub {
-  flex: 1; max-width: 540px;
+  max-width: 540px;
   border-left: 1px solid rgba(27,159,149,0.45);
   padding-left: 40px;
   font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.75;
@@ -543,8 +547,11 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
 .products .panel__counter { color: rgba(255,255,255,0.30); }
 .products .panel__title   { color: var(--white); }
 .products .eyebrow        { color: var(--teal); border-left-color: var(--teal); }
+.products__top-right {
+  flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 24px;
+}
 .products__sub {
-  flex: 1; max-width: 540px;
+  max-width: 540px;
   border-left: 1px solid rgba(27,159,149,0.35);
   padding-left: 40px;
   font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.75; margin-top: 0;
@@ -819,7 +826,10 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
   /* Products */
   .products__top { flex-direction: column; gap: 16px; align-items: flex-start; }
   .products__top-left { padding-right: 0; }
+  .products__top-right { gap: 16px; }
   .products__sub { border-left: none; padding-left: 0; max-width: 100%; }
+  .ref__intro-right { gap: 16px; }
+  .ref__sub { border-left: none; padding-left: 0; max-width: 100%; }
   .prod-card { min-width: calc(100% / 3); height: 400px; }
   .prod-card:hover { flex: 2.2 1 0; }
 
@@ -896,12 +906,14 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
   /* Products */
   .products__top { flex-direction: column; gap: 12px; align-items: flex-start; }
   .products__top-left { padding-right: 0; }
+  .products__top-right { gap: 12px; }
   .products__sub { border-left: none; padding-left: 0; max-width: 100%; }
+  .ref__intro-right { gap: 12px; }
+  .ref__sub { border-left: none; padding-left: 0; max-width: 100%; }
   .product-strip-wrap { margin: 0 calc(-1 * var(--pad-x)); }
   .product-strip { gap: 0; }
   .prod-card { min-width: 82vw; height: 340px; flex-shrink: 0; }
   .prod__arrow { display: flex; }
-  .prod-card { min-width: 78vw; height: 340px; flex-shrink: 0; }
   .prod-card:hover { flex: 1 1 0; } /* disable expand on touch */
 
   /* Why */
@@ -1055,10 +1067,13 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
         <span class="eyebrow anim" data-delay="100">Wat wij bieden</span>
         <h2 class="panel__title anim" data-delay="200">Ons product<br />assortiment</h2>
       </div>
-      <p class="products__sub anim" data-delay="310">
-        Gespecialiseerd in gecertificeerde veiligheidsbeglazing voor grootschalige architectuur-
-        en bouwprojecten. Van oversized geharde panelen tot brandwerende systemen.
-      </p>
+      <div class="products__top-right">
+        <p class="products__sub anim" data-delay="310">
+          Gespecialiseerd in gecertificeerde veiligheidsbeglazing voor grootschalige architectuur-
+          en bouwprojecten. Van oversized geharde panelen tot brandwerende systemen.
+        </p>
+        <a href="#contact" class="btn btn--fill anim" data-delay="420">Offerte aanvragen</a>
+      </div>
     </div>
 
     <div class="product-strip-wrap">
@@ -1138,10 +1153,6 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
     </div>
     </div>
 
-    <div class="why__cta" style="padding: 40px var(--pad-x) 0;">
-      <a href="#contact" class="btn btn--fill">Offerte aanvragen</a>
-      <span class="why__cta-note">Binnen één werkdag een reactie — vrijblijvend</span>
-    </div>
   </section>
 
   <!-- ══════════════════════════════════════════
@@ -1209,7 +1220,10 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
         <span class="eyebrow anim" data-delay="100">Ons werk</span>
         <h2 class="panel__title anim" data-delay="200">Projecten<br />in Europa.</h2>
       </div>
-      <p class="ref__sub anim" data-delay="310">Van de Cooltoren in Rotterdam tot torens in Parijs en Londen — elk project bewijst wat directe fabrieksaccess, technische precisie en groothandelsexpertise in de praktijk kunnen bereiken.</p>
+      <div class="ref__intro-right">
+        <p class="ref__sub anim" data-delay="310">Van de Cooltoren in Rotterdam tot torens in Parijs en Londen — elk project bewijst wat directe fabrieksaccess, technische precisie en groothandelsexpertise in de praktijk kunnen bereiken.</p>
+        <a href="#contact" class="btn btn--fill anim" data-delay="420">Offerte aanvragen</a>
+      </div>
     </div>
 
     <div class="ref__scroll-wrap">
@@ -1251,7 +1265,6 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
     </div>
 
     <div class="ref__more anim" data-delay="600">
-      <a href="#contact" class="btn btn--fill">Offerte aanvragen</a>
       <span class="ref__count">18 projecten — Nederland, België, Duitsland, Frankrijk, Engeland</span>
     </div>
   </section>
