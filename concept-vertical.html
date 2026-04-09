@@ -317,21 +317,26 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
 .references .eyebrow        { color: var(--teal); border-left-color: var(--teal); }
 .ref__sub { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.7; }
 
-/* Mosaic grid layout */
+/* Mosaic grid — 18 photos, 6 columns, 4 rows */
 .ref__grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: 280px 220px;
+  grid-auto-rows: 240px;
   gap: 4px;
 }
 .ref__cell {
   position: relative; overflow: hidden; cursor: pointer;
 }
-/* Featured large cells */
-.ref__cell:nth-child(1)  { grid-column: span 2; grid-row: span 2; }
-.ref__cell:nth-child(4)  { grid-column: span 2; }
-.ref__cell:nth-child(7)  { grid-column: span 2; }
-.ref__cell:nth-child(8)  { grid-column: span 4; }
+/* Row 1 — 4 photos (2+1+1+2) */
+.ref__cell:nth-child(1) { grid-column: span 2; }
+.ref__cell:nth-child(4) { grid-column: span 2; }
+/* Row 2 — 5 photos (1+2+1+1+1) */
+.ref__cell:nth-child(6) { grid-column: span 2; }
+/* Row 3 — 5 photos (1+1+2+1+1) */
+.ref__cell:nth-child(12) { grid-column: span 2; }
+/* Row 4 — 4 photos (2+1+1+2) */
+.ref__cell:nth-child(15) { grid-column: span 2; }
+.ref__cell:nth-child(18) { grid-column: span 2; }
 
 .ref__cell img {
   width: 100%; height: 100%; object-fit: cover;
@@ -694,6 +699,7 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
     </div>
 
     <div class="ref__grid">
+      <!-- Row 1: span2 + 1 + 1 + span2 = 4 photos -->
       <div class="ref__cell">
         <img src="Brand_assets/References/GIGAglas-cooltoren-rotterdam.jpg" alt="Cooltoren, Rotterdam" loading="lazy" />
         <div class="ref__cell-overlay"><span class="ref__name">Cooltoren, Rotterdam</span><span class="ref__type">Gehard glas</span></div>
@@ -703,13 +709,14 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
         <div class="ref__cell-overlay"><span class="ref__name">Nieuw Babylon, Den Haag</span><span class="ref__type">Constructief gehard glas</span></div>
       </div>
       <div class="ref__cell">
-        <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-Calypso-rotterdam.jpg" alt="Calypso Rotterdam" loading="lazy" />
+        <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-Calypso-rotterdam.jpg" alt="Calypso, Rotterdam" loading="lazy" />
         <div class="ref__cell-overlay"><span class="ref__name">Calypso, Rotterdam</span><span class="ref__type">Gelamineerde gevelbeglazing</span></div>
       </div>
       <div class="ref__cell">
         <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-zalmhaven-rotterdam-2.jpg" alt="Zalmhaven" loading="lazy" />
         <div class="ref__cell-overlay"><span class="ref__name">Zalmhaven, Rotterdam</span><span class="ref__type">Gelaagd glas</span></div>
       </div>
+      <!-- Row 2: 1 + span2 + 1 + 1 + 1 = 5 photos -->
       <div class="ref__cell">
         <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-pontsteiger-amsterdam.jpg" alt="Pontsteiger" loading="lazy" />
         <div class="ref__cell-overlay"><span class="ref__name">Pontsteiger, Amsterdam</span><span class="ref__type">Gelamineerde gevelbeglazing</span></div>
@@ -725,6 +732,48 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
       <div class="ref__cell">
         <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-the-one-tower-bridge.jpg" alt="The One Tower Bridge" loading="lazy" />
         <div class="ref__cell-overlay"><span class="ref__name">The One, Tower Bridge</span><span class="ref__type">Gordijngevelglazing</span></div>
+      </div>
+      <div class="ref__cell">
+        <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-bergopwaarts.jpg" alt="Bergopwaarts, Deurne" loading="lazy" />
+        <div class="ref__cell-overlay"><span class="ref__name">Bergopwaarts, Deurne</span><span class="ref__type">Gehard glas</span></div>
+      </div>
+      <!-- Row 3: 1 + 1 + span2 + 1 + 1 = 5 photos -->
+      <div class="ref__cell">
+        <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-cs-arnhem.jpg" alt="CS Arnhem" loading="lazy" />
+        <div class="ref__cell-overlay"><span class="ref__name">CS Arnhem</span><span class="ref__type">Gebogen glas</span></div>
+      </div>
+      <div class="ref__cell">
+        <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-zac-seguin.jpg" alt="ZAC Seguin" loading="lazy" />
+        <div class="ref__cell-overlay"><span class="ref__name">ZAC Seguin, Boulogne</span><span class="ref__type">Gordijngevelglazing</span></div>
+      </div>
+      <div class="ref__cell">
+        <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-stadionkwartier-eindhoven.jpg" alt="Stadionkwartier" loading="lazy" />
+        <div class="ref__cell-overlay"><span class="ref__name">Stadionkwartier, Eindhoven</span><span class="ref__type">Zeefdruk glas</span></div>
+      </div>
+      <div class="ref__cell">
+        <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-Orleans-ziekenhuis.jpg" alt="Orléans Ziekenhuis" loading="lazy" />
+        <div class="ref__cell-overlay"><span class="ref__name">Orléans Ziekenhuis</span><span class="ref__type">Brandwerend glas</span></div>
+      </div>
+      <div class="ref__cell">
+        <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-de-drie-leeuwen.jpg" alt="De Drie Leeuwen" loading="lazy" />
+        <div class="ref__cell-overlay"><span class="ref__name">De Drie Leeuwen</span><span class="ref__type">Brandwerend glas</span></div>
+      </div>
+      <!-- Row 4: span2 + 1 + 1 + span2 = 4 photos -->
+      <div class="ref__cell">
+        <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-brainport-reclamemast-eindhoven.jpg" alt="Brainport, Eindhoven" loading="lazy" />
+        <div class="ref__cell-overlay"><span class="ref__name">Brainport, Eindhoven</span><span class="ref__type">Zeefdruk glas</span></div>
+      </div>
+      <div class="ref__cell">
+        <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-fietsenstalling.jpg" alt="Fietsenstalling" loading="lazy" />
+        <div class="ref__cell-overlay"><span class="ref__name">Fietsenstalling</span><span class="ref__type">Gehard glas</span></div>
+      </div>
+      <div class="ref__cell">
+        <img src="Brand_assets/References/GIGAglas-geluidschermen-snelwegprojecten.jpg" alt="Geluidschermen" loading="lazy" />
+        <div class="ref__cell-overlay"><span class="ref__name">Geluidschermen</span><span class="ref__type">Gelaagd glas</span></div>
+      </div>
+      <div class="ref__cell">
+        <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-parktoren-amsterdam.jpg" alt="Parktoren, Antwerpen" loading="lazy" />
+        <div class="ref__cell-overlay"><span class="ref__name">Parktoren, Antwerpen</span><span class="ref__type">Gelamineerde gevelbeglazing</span></div>
       </div>
     </div>
 
