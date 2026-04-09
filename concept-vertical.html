@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GIGAglas — Verticaal concept</title>
+  <link rel="stylesheet" href="fonts.css" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal: #17918a;
+      --teal-dark: #0f6b65;
+      --ink: #0a1f1e;
+      --white: #ffffff;
+      --glacial: #f4f7f6;
+      --border: rgba(0,0,0,0.08);
+      --font-disp: 'Canela', 'Georgia', serif;
+      --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+      --pad: clamp(24px, 5vw, 80px);
+      --nav-h: 68px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(10,31,30,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex; align-items: center;
+    }
+    .nav__inner {
+      width: 100%; max-width: 1440px; margin: 0 auto;
+      padding: 0 var(--pad);
+      display: flex; align-items: center; gap: 40px;
+    }
+    .nav__logo-img { height: 28px; }
+    .nav__links {
+      display: flex; align-items: center; gap: 28px; margin-left: auto;
+    }
+    .nav__links a {
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.7); text-decoration: none;
+      text-transform: uppercase; transition: color 0.2s;
+    }
+    .nav__links a:hover { color: var(--white); }
+    .nav__cta {
+      background: var(--teal); color: var(--white) !important;
+      padding: 8px 18px; border-radius: 4px;
+    }
+
+    /* ── Section base ── */
+    .section {
+      width: 100%;
+      padding-top: var(--nav-h);
+    }
+    .section__inner {
+      max-width: 1440px; margin: 0 auto;
+      padding: clamp(64px, 8vw, 120px) var(--pad);
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: 20px;
+    }
+    .eyebrow::before {
+      content: ''; display: block;
+      width: 24px; height: 2px; background: var(--teal);
+    }
+    h1, h2 {
+      font-family: var(--font-disp);
+      font-weight: 400; line-height: 1.08; letter-spacing: -0.03em;
+    }
+
+    /* ═══ 01 · HERO ═══ */
+    .hero {
+      min-height: 100svh;
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero__bg {
+      position: absolute; inset: 0;
+      background-image: url('Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-cs-arnhem.jpg');
+      background-size: cover; background-position: center;
+      opacity: 0.28;
+    }
+    .hero__inner {
+      position: relative; z-index: 2;
+      max-width: 1440px; margin: 0 auto;
+      padding: calc(var(--nav-h) + clamp(80px, 12vw, 160px)) var(--pad) clamp(80px, 10vw, 120px);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end;
+    }
+    .hero__content { max-width: 600px; }
+    .hero__eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: 24px;
+    }
+    .hero__eyebrow::before {
+      content: ''; display: block; width: 24px; height: 2px; background: var(--teal);
+    }
+    .hero h1 {
+      font-size: clamp(3.2rem, 6vw, 7rem);
+      color: var(--white); margin-bottom: 28px;
+    }
+    .hero h1 em { color: var(--teal); font-style: normal; }
+    .hero__sub {
+      font-size: clamp(0.9rem, 1.2vw, 1rem);
+      color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 40px;
+    }
+    .hero__actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center;
+      padding: 14px 28px; border-radius: 4px;
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; text-decoration: none;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .btn--outline {
+      background: transparent; border: 1.5px solid rgba(255,255,255,0.4);
+      color: var(--white);
+    }
+    .btn--fill { background: var(--teal); color: var(--white); border: 1.5px solid var(--teal); }
+    .hero__stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px; overflow: hidden;
+      align-self: end;
+    }
+    .hero__stat {
+      padding: 32px 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .hero__stat:nth-child(2n) { border-right: none; }
+    .hero__stat:nth-last-child(-n+2) { border-bottom: none; }
+    .stat-num {
+      font-family: var(--font-disp); font-size: clamp(2.4rem, 3.5vw, 3.2rem);
+      font-weight: 700; color: var(--white); line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(255,255,255,0.45);
+      margin-top: 8px;
+    }
+
+    /* ═══ 02 · ABOUT ═══ */
+    .about { background: var(--glacial); }
+    .about__inner {
+      max-width: 1440px; margin: 0 auto;
+      padding: clamp(80px, 10vw, 140px) var(--pad);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+    }
+    .about h2 {
+      font-size: clamp(2.4rem, 4vw, 4.2rem);
+      color: var(--ink); margin-bottom: 28px;
+    }
+    .about__body { font-size: 0.95rem; line-height: 1.8; color: #3a4a49; margin-bottom: 16px; }
+    .check-list {
+      list-style: none; margin-top: 28px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .check-list li {
+      font-size: 0.82rem; font-weight: 500; color: #2a3a39;
+      padding-left: 22px; position: relative;
+    }
+    .check-list li::before {
+      content: '✓'; position: absolute; left: 0;
+      color: var(--teal); font-weight: 700;
+    }
+    .about__photo {
+      border-radius: 4px; overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .about__photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ═══ 03 · REFERENCES ═══ */
+    .references { background: var(--ink); }
+    .references__inner {
+      max-width: 1440px; margin: 0 auto;
+      padding: clamp(80px, 10vw, 140px) var(--pad);
+    }
+    .references h2 {
+      font-size: clamp(2.4rem, 4vw, 4.2rem);
+      color: var(--white); margin-bottom: 16px;
+    }
+    .ref-intro {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 40px; margin-bottom: 48px;
+    }
+    .ref-sub { font-size: 0.88rem; color: rgba(255,255,255,0.5); line-height: 1.7; }
+    .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 4px;
+    }
+    .ref-cell {
+      position: relative; overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .ref-cell:first-child {
+      grid-column: span 2;
+      aspect-ratio: 2/1;
+    }
+    .ref-cell img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: brightness(0.55);
+      transition: filter 0.4s, transform 0.5s;
+    }
+    .ref-cell:hover img { filter: brightness(0.75); transform: scale(1.03); }
+    .ref-caption {
+      position: absolute; bottom: 16px; left: 20px;
+    }
+    .ref-caption__name {
+      font-family: var(--font-disp); font-size: 0.9rem;
+      font-weight: 700; color: var(--white);
+    }
+    .ref-caption__type {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.6);
+    }
+    .ref-more {
+      margin-top: 40px; text-align: center;
+    }
+    .ref-more-note {
+      font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 12px;
+    }
+
+    /* ═══ 04 · PRODUCTS ═══ */
+    .products { background: var(--white); }
+    .products__inner {
+      max-width: 1440px; margin: 0 auto;
+      padding: clamp(80px, 10vw, 140px) var(--pad);
+    }
+    .products h2 {
+      font-size: clamp(2.4rem, 4vw, 4.2rem);
+      color: var(--ink); margin-bottom: 48px;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+    }
+    .prod-card {
+      position: relative; overflow: hidden;
+      aspect-ratio: 2/3;
+      cursor: pointer;
+    }
+    .prod-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: brightness(0.5);
+      transition: filter 0.4s, transform 0.6s;
+    }
+    .prod-card:hover img { filter: brightness(0.75); transform: scale(1.04); }
+    .prod-card__body {
+      position: absolute; inset: 0; padding: 20px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+    }
+    .prod-card__num {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.45); text-transform: uppercase; margin-bottom: 6px;
+    }
+    .prod-card__title {
+      font-family: var(--font-disp); font-size: 1rem;
+      font-weight: 400; color: var(--white); line-height: 1.2; margin-bottom: 12px;
+    }
+    .prod-card__link {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--teal); text-decoration: none;
+    }
+
+    /* ═══ 05 · WHY ═══ */
+    .why { background: var(--glacial); }
+    .why__inner {
+      max-width: 1440px; margin: 0 auto;
+      padding: clamp(80px, 10vw, 140px) var(--pad);
+    }
+    .why h2 {
+      font-size: clamp(2.4rem, 4vw, 4.2rem);
+      color: var(--ink); margin-bottom: 48px;
+    }
+    .why-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    }
+    .why-card {
+      background: var(--white);
+      padding: 36px 32px;
+      border-radius: 2px;
+    }
+    .why-card__icon {
+      width: 36px; height: 36px; color: var(--teal); margin-bottom: 20px;
+    }
+    .why-card__icon svg { width: 100%; height: 100%; }
+    .why-card__title {
+      font-family: var(--font-disp); font-size: 1.05rem;
+      font-weight: 400; color: var(--ink); margin-bottom: 10px;
+    }
+    .why-card__body { font-size: 0.82rem; color: #4a5a59; line-height: 1.75; }
+
+    /* ═══ 06 · CONTACT ═══ */
+    .contact { background: var(--ink); }
+    .contact__inner {
+      max-width: 1440px; margin: 0 auto;
+      padding: clamp(80px, 10vw, 140px) var(--pad);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    }
+    .contact h2 {
+      font-size: clamp(2.4rem, 4vw, 4.2rem);
+      color: var(--white); margin-bottom: 20px;
+    }
+    .contact__body { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.8; }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-field label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .form-field input, .form-field textarea, .form-field select {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px; padding: 12px 14px;
+      color: var(--white); font-family: var(--font-body); font-size: 0.88rem;
+    }
+    .form-field textarea { resize: vertical; min-height: 120px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .btn--submit {
+      background: var(--teal); color: var(--white);
+      border: none; border-radius: 4px;
+      padding: 14px 28px; font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
+    }
+
+    /* ── Concept label ── */
+    .concept-badge {
+      position: fixed; bottom: 20px; right: 20px; z-index: 999;
+      background: var(--teal); color: var(--white);
+      padding: 10px 18px; border-radius: 40px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; box-shadow: 0 4px 20px rgba(23,145,138,0.4);
+    }
+    .concept-badge a {
+      color: var(--white); text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="#hero">
+        <img src="Brand_assets/Logo/Logo - GIGAglas - Left alligned - Blue.png"
+             alt="GIGAglas" class="nav__logo-img" />
+      </a>
+      <nav class="nav__links">
+        <a href="#about">Over ons</a>
+        <a href="#references">Referenties</a>
+        <a href="#products">Producten</a>
+        <a href="#why">Waarom GIGAglas</a>
+        <a href="#contact" class="nav__cta btn btn--fill">Offerte aanvragen</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ═══ 01 · HERO ═══ -->
+  <section class="section hero" id="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__inner">
+      <div class="hero__content">
+        <div class="hero__eyebrow">Internationale Veiligheidsglasgroothandel</div>
+        <h1>Glas dat<br /><em>presteert</em><br />op elke schaal.</h1>
+        <p class="hero__sub">Van oversized geharde panelen tot 18&nbsp;m, gebogen beglazing, brandwerende barrières tot precisie gelamineerd en zeefdruk glas — GIGAglas levert het volledige spectrum veiligheidsbeglazing tegen groothandelsprijzen in Europa.</p>
+        <div class="hero__actions">
+          <a href="#products" class="btn btn--outline">Bekijk producten</a>
+          <a href="#contact"  class="btn btn--fill">Offerte aanvragen</a>
+        </div>
+      </div>
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <div class="stat-num">18 m</div>
+          <div class="stat-label">Max. lengte gehard paneel</div>
+        </div>
+        <div class="hero__stat">
+          <div class="stat-num">CE</div>
+          <div class="stat-label">Gecertificeerd</div>
+        </div>
+        <div class="hero__stat">
+          <div class="stat-num">EI 120</div>
+          <div class="stat-label">Max. brandweerstandsklasse</div>
+        </div>
+        <div class="hero__stat">
+          <div class="stat-num">EU</div>
+          <div class="stat-label">Distributie in Europa</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 02 · ABOUT ═══ -->
+  <section class="section about" id="about">
+    <div class="about__inner">
+      <div>
+        <div class="eyebrow">Wie wij zijn</div>
+        <h2>Uw strategische<br />partner in<br />veiligheidsbeglazing.</h2>
+        <p class="about__body">GIGAglas is een internationale glasgroothandel met diepgaande expertise in gecertificeerd veiligheidsglas. Door de juiste productiepartnerschappen in Europa op te bouwen, ontsluiten wij productiecapaciteiten en prijzen die via conventionele kanalen simpelweg niet beschikbaar zijn.</p>
+        <p class="about__body">Of u nu één hoogwaardige gevel beglaasd of een grootschalig bouwprogramma uitvoert, wij matchen uw exacte specificatie — technisch, logistiek en commercieel.</p>
+        <ul class="check-list">
+          <li>CE-gecertificeerde producten conform EN-normen</li>
+          <li>Directe fabrieksaccess — geen tussenhandelsmarge</li>
+          <li>Maatgerichte logistiek voor groot- en kwetsbaar transport</li>
+          <li>Technische ondersteuning van specificatie tot levering</li>
+        </ul>
+      </div>
+      <div class="about__photo">
+        <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-Calypso-rotterdam.jpg"
+             alt="Calypso Rotterdam" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 03 · REFERENCES ═══ -->
+  <section class="section references" id="references">
+    <div class="references__inner">
+      <div class="ref-intro">
+        <div>
+          <div class="eyebrow" style="color:var(--teal)">Ons werk</div>
+          <h2>Projecten<br />in Europa.</h2>
+        </div>
+        <p class="ref-sub">Markante beglazing geleverd<br />op elke schaal.<br /><br />18 projecten — scroll voor meer.</p>
+      </div>
+      <div class="ref-grid">
+        <div class="ref-cell">
+          <img src="Brand_assets/References/GIGAglas-cooltoren-rotterdam.jpg" alt="Cooltoren" loading="lazy" />
+          <div class="ref-caption"><div class="ref-caption__name">Cooltoren, Rotterdam</div><div class="ref-caption__type">Gehard glas</div></div>
+        </div>
+        <div class="ref-cell">
+          <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-Nieuw-babylon.jpg" alt="Nieuw Babylon" loading="lazy" />
+          <div class="ref-caption"><div class="ref-caption__name">Nieuw Babylon, Den Haag</div><div class="ref-caption__type">Constructief gehard glas</div></div>
+        </div>
+        <div class="ref-cell">
+          <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-pontsteiger-amsterdam.jpg" alt="Pontsteiger" loading="lazy" />
+          <div class="ref-caption"><div class="ref-caption__name">Pontsteiger, Amsterdam</div><div class="ref-caption__type">Gelamineerde gevelbeglazing</div></div>
+        </div>
+        <div class="ref-cell">
+          <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-zalmhaven-rotterdam-2.jpg" alt="Zalmhaven" loading="lazy" />
+          <div class="ref-caption"><div class="ref-caption__name">Zalmhaven, Rotterdam</div><div class="ref-caption__type">Gelaagd glas</div></div>
+        </div>
+        <div class="ref-cell">
+          <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-jules-ladoumegue.jpg" alt="Jules Ladoumègue" loading="lazy" />
+          <div class="ref-caption"><div class="ref-caption__name">Jules Ladoumègue, Paris</div><div class="ref-caption__type">Zeefdruk glas</div></div>
+        </div>
+        <div class="ref-cell">
+          <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-de-rotterdam.jpg" alt="De Rotterdam" loading="lazy" />
+          <div class="ref-caption"><div class="ref-caption__name">De Rotterdam</div><div class="ref-caption__type">Gelaagd glas</div></div>
+        </div>
+      </div>
+      <div class="ref-more">
+        <a href="#contact" class="btn btn--fill" style="margin:0 auto;">Meer bekijken — offerte aanvragen</a>
+        <p class="ref-more-note">En 12 meer projecten door heel Europa</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 04 · PRODUCTS ═══ -->
+  <section class="section products" id="products">
+    <div class="products__inner">
+      <div class="eyebrow">Wat wij bieden</div>
+      <h2>Ons product<br />assortiment</h2>
+      <div class="products-grid">
+        <div class="prod-card">
+          <img src="Brand_assets/References/GIGAglas-cooltoren-rotterdam.jpg" alt="Gehard Glas" loading="lazy" />
+          <div class="prod-card__body">
+            <div class="prod-card__num">01</div>
+            <div class="prod-card__title">Gehard Glas</div>
+            <a href="#contact" class="prod-card__link">Informeer →</a>
+          </div>
+        </div>
+        <div class="prod-card">
+          <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-pontsteiger-amsterdam.jpg" alt="Gelaagd Glas" loading="lazy" />
+          <div class="prod-card__body">
+            <div class="prod-card__num">02</div>
+            <div class="prod-card__title">Gelaagd Glas</div>
+            <a href="#contact" class="prod-card__link">Informeer →</a>
+          </div>
+        </div>
+        <div class="prod-card">
+          <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-cs-arnhem.jpg" alt="Brandwerend Glas" loading="lazy" />
+          <div class="prod-card__body">
+            <div class="prod-card__num">03</div>
+            <div class="prod-card__title">Brandwerend Glas</div>
+            <a href="#contact" class="prod-card__link">Informeer →</a>
+          </div>
+        </div>
+        <div class="prod-card">
+          <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas-stadionkwartier-eindhoven.jpg" alt="Zeefdruk glas" loading="lazy" />
+          <div class="prod-card__body">
+            <div class="prod-card__num">04</div>
+            <div class="prod-card__title">Zeefdruk glas</div>
+            <a href="#contact" class="prod-card__link">Informeer →</a>
+          </div>
+        </div>
+        <div class="prod-card">
+          <img src="Brand_assets/References/GIGAglas-gehardglas-gelamineerdglas-gebogenglas-zeefdrukglas (11).jpg" alt="Gebogen Glas" loading="lazy" />
+          <div class="prod-card__body">
+            <div class="prod-card__num">05</div>
+            <div class="prod-card__title">Gebogen Glas</div>
+            <a href="#contact" class="prod-card__link">Informeer →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 05 · WHY ═══ -->
+  <section class="section why" id="why">
+    <div class="why__inner">
+      <div class="eyebrow">Ons voordeel</div>
+      <h2>Waarom<br />GIGAglas?</h2>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
+            </svg>
+          </div>
+          <div class="why-card__title">Internationaal Bereik</div>
+          <p class="why-card__body">Export naar projecten door heel Europa — van Rotterdam tot Londen.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+              <circle cx="12" cy="12" r="4"/>
+            </svg>
+          </div>
+          <div class="why-card__title">Concurrerende Prijzen</div>
+          <p class="why-card__body">Directe fabrieksaccess elimineert de tussenhandelsmarge — rechtstreeks voor u.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+            </svg>
+          </div>
+          <div class="why-card__title">Technische Expertise</div>
+          <p class="why-card__body">Diepgaande kennis van EN-normen, tussenlaag technologieën en constructieve beglazing.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
+          <div class="why-card__title">Gecertificeerde Kwaliteit</div>
+          <p class="why-card__body">CE-gecertificeerde producten conform EN 12150, EN 14449, EN 1634 en meer.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+            </svg>
+          </div>
+          <div class="why-card__title">Maatwerkformaten</div>
+          <p class="why-card__body">Oversized, gebogen, bedrukt of brandwerend — wij matchen uw exacte specificatie.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+            </svg>
+          </div>
+          <div class="why-card__title">Persoonlijke Service</div>
+          <p class="why-card__body">Één aanspreekpunt van specificatie tot levering. Reactie binnen één werkdag.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 06 · CONTACT ═══ -->
+  <section class="section contact" id="contact">
+    <div class="contact__inner">
+      <div>
+        <div class="eyebrow" style="color:var(--teal)">Neem contact op</div>
+        <h2>Vraag een<br />offerte aan.</h2>
+        <p class="contact__body">Geef ons uw specificatie, hoeveelheden en leveringsbestemming. Ons team geeft binnen één werkdag een reactie met prijzen en levertijden.</p>
+      </div>
+      <form class="contact-form">
+        <div class="form-row">
+          <div class="form-field">
+            <label>Volledige naam *</label>
+            <input type="text" placeholder="Jan Peeters" />
+          </div>
+          <div class="form-field">
+            <label>Bedrijf</label>
+            <input type="text" placeholder="Uw bedrijf" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>E-mailadres *</label>
+            <input type="email" placeholder="jan@example.com" />
+          </div>
+          <div class="form-field">
+            <label>Telefoonnummer</label>
+            <input type="tel" placeholder="+31 ..." />
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Uw specificatie / bericht *</label>
+          <textarea placeholder="Afmetingen, hoeveelheden, tussenlaagtype, leveringsland…"></textarea>
+        </div>
+        <button type="submit" class="btn--submit">Verstuur aanvraag</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Concept badge -->
+  <div class="concept-badge">
+    ← <a href="index.html">Terug naar horizontaal concept</a>
+  </div>
+
+</body>
+</html>

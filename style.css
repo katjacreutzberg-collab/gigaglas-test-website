@@ -413,42 +413,49 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
 
 .ref__photos {
   flex: 1; display: flex;
-  overflow: hidden;
+  overflow-x: scroll; overflow-y: hidden;
+  scroll-behavior: smooth;
   scrollbar-width: none;
 }
 .ref__photos::-webkit-scrollbar { display: none; }
 
 .ref__photo {
-  flex: 1; position: relative; overflow: hidden;
+  flex: 0 0 340px; position: relative; overflow: hidden;
   cursor: pointer;
-  transition: flex 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.ref__photo:hover { flex: 2.8; }
 .ref__photo img {
   width: 100%; height: 100%; object-fit: cover;
   filter: brightness(0.5) saturate(0.85);
   transition: filter 0.5s var(--ease), transform 0.7s var(--ease);
 }
-.ref__photo:hover img { filter: brightness(0.82) saturate(1.05); transform: scale(1.0); }
+.ref__photo:hover img { filter: brightness(0.82) saturate(1.05); }
 
 .ref__overlay {
   position: absolute; bottom: 0; left: 0; right: 0;
   padding: 48px 22px 20px;
   background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
   display: flex; flex-direction: column; gap: 5px;
-  transform: translateY(8px); opacity: 0.6;
-  transition: transform 0.45s var(--ease), opacity 0.45s;
+  opacity: 1;
 }
-.ref__photo:hover .ref__overlay { transform: translateY(0); opacity: 1; }
 
 .ref__name { font-family: var(--font-disp); font-size: 0.88rem; font-weight: 700; color: var(--white); line-height: 1.2; }
 .ref__type { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
 
-/* Reference arrows */
-.ref__arrow { display: none; }
+/* Reference arrows — styled like product gallery nav */
+.ref__arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,0.12); backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255,255,255,0.28); color: var(--white);
+  z-index: 10; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.ref__arrow:hover { background: rgba(255,255,255,0.22); }
 .ref__arrow svg { width: 16px; height: 16px; }
-.ref__arrow--prev { left: 0; border-left: none; border-radius: 0 4px 4px 0; }
-.ref__arrow--next { right: 0; border-right: none; border-radius: 4px 0 0 4px; }
+.ref__arrow--prev { left: 18px; }
+.ref__arrow--next { right: 18px; }
 
 /* ════════════════════════════════════════════
    PANEL 04 — PRODUCTS  (glacial white + circular gallery)
@@ -842,12 +849,15 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
 .panel--visible .product-card:nth-child(3) { animation-delay: 400ms; }
 .panel--visible .product-card:nth-child(4) { animation-delay: 500ms; }
 
-/* Stagger — reference photos */
-.panel--visible .ref__photo:nth-child(1) { animation-delay: 120ms; }
-.panel--visible .ref__photo:nth-child(2) { animation-delay: 220ms; }
-.panel--visible .ref__photo:nth-child(3) { animation-delay: 320ms; }
-.panel--visible .ref__photo:nth-child(4) { animation-delay: 420ms; }
-.panel--visible .ref__photo:nth-child(5) { animation-delay: 520ms; }
+/* Stagger — reference photos (first 8 visible on load, rest load without extra delay) */
+.panel--visible .ref__photo:nth-child(1) { animation-delay: 80ms; }
+.panel--visible .ref__photo:nth-child(2) { animation-delay: 150ms; }
+.panel--visible .ref__photo:nth-child(3) { animation-delay: 220ms; }
+.panel--visible .ref__photo:nth-child(4) { animation-delay: 290ms; }
+.panel--visible .ref__photo:nth-child(5) { animation-delay: 360ms; }
+.panel--visible .ref__photo:nth-child(6) { animation-delay: 430ms; }
+.panel--visible .ref__photo:nth-child(7) { animation-delay: 500ms; }
+.panel--visible .ref__photo:nth-child(8) { animation-delay: 570ms; }
 
 /* ════════════════════════════════════════════
    MOBILE OVERRIDES  (< 1024px)
