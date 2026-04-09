@@ -653,7 +653,7 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
   color: rgba(27,159,149,0.07);
   pointer-events: none; user-select: none;
 }
-.why-card:hover {
+.why-card:not(.why-card--featured):hover {
   border-color: rgba(27,159,149,0.50);
   transform: translateY(-3px);
   box-shadow: 0 8px 28px rgba(0,0,0,0.10), 0 0 0 1px rgba(27,159,149,0.22);
@@ -1413,6 +1413,28 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
       grid.addEventListener('mouseleave', function () {
         overlay.classList.remove('is-active');
       });
+    })();
+
+    // Why section — move featured card on hover
+    (function () {
+      var cards = document.querySelectorAll('.why-card');
+      if (!cards.length) return;
+      var defaultFeatured = document.querySelector('.why-card--featured');
+
+      cards.forEach(function (card) {
+        card.addEventListener('mouseenter', function () {
+          cards.forEach(function (c) { c.classList.remove('why-card--featured'); });
+          card.classList.add('why-card--featured');
+        });
+      });
+
+      var whyCards = document.querySelector('.why__cards');
+      if (whyCards && defaultFeatured) {
+        whyCards.addEventListener('mouseleave', function () {
+          cards.forEach(function (c) { c.classList.remove('why-card--featured'); });
+          defaultFeatured.classList.add('why-card--featured');
+        });
+      }
     })();
   </script>
 </body>
