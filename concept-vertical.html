@@ -867,9 +867,12 @@ body { font-family: var(--font); background: var(--white); color: var(--text); l
     border-top: 1px solid rgba(255,255,255,0.10);
     margin-top: 32px;
     width: 100%;
+    padding: 0 var(--pad-x);
+    box-sizing: border-box;
   }
-  .hero__stat-item { border-right: 1px solid rgba(255,255,255,0.10); border-bottom: none; padding: 12px 10px; }
-  .hero__stat-item:last-child { border-right: none; }
+  .hero__stat-item { border-right: 1px solid rgba(255,255,255,0.10); border-bottom: none; padding: 12px 6px; }
+  .hero__stat-item:first-child { padding-left: 0; }
+  .hero__stat-item:last-child { border-right: none; padding-right: 0; }
   .hero__stat-num { font-size: clamp(0.9rem, 3.5vw, 1.2rem); }
   .hero__stat-label { font-size: 0.52rem; letter-spacing: 0.07em; }
 
